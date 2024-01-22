@@ -10,4 +10,8 @@ socket.on("text_action_client", (value) => {
     updateTextArea(value)
 })
 
+socket.on("disconnected", (reason) => {
+    console.log(`Server ${socket.id} disconnected. The reason is: ${reason}`)
+})
+
 export { emitTextAction }

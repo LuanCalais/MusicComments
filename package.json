@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon src/server.js"
+    "serve": "nodemon src/socket-comment.js"
   },
   "keywords": [],
   "author": "",
