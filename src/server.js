@@ -23,7 +23,7 @@ httpServer.listen(port, () => {
     console.log(`server listen in port ${port}`)
 })
 
-const io = new Server(httpServer)
+export const io = new Server(httpServer)
 
 // When some client emit a event called "connection" the server will listen and done something 
 io.on("connection", (socket) => {
