@@ -10,7 +10,10 @@ genderSelect(name)
 const textInput = document.getElementById("text-edit")
 
 textInput.addEventListener("keyup", () => {
-    emitTextAction(textInput.value)
+    emitTextAction({
+        text: textInput.value,
+        name: name
+    })
 })
 
 function updateTextArea(value) {

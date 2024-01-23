@@ -6,8 +6,8 @@ function genderSelect(name) {
     socket.emit("gender_select", name)
 }
 
-function emitTextAction(value) {
-    socket.emit("text_action", value)
+function emitTextAction(data) {
+    socket.emit("text_action", data)
 }
 
 socket.on("text_action_client", (value) => {
