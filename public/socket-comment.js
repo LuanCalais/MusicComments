@@ -3,7 +3,9 @@ import { updateTextArea } from "./comments.js"
 const socket = io()
 
 function genderSelect(name) {
-    socket.emit("gender_select", name)
+    socket.emit("gender_select", name, (value) => {
+        updateTextArea(value)
+    })
 }
 
 function emitTextAction(data) {
