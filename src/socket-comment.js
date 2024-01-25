@@ -1,26 +1,12 @@
+import { commentsCollection } from "./config/dbConnect.js";
 import io from "./server.js";
 
-const comments = [
-    {
-        name: "Indie",
-        value: ""
-    },
-    {
-        name: "Rock",
-        value: ""
-    },
-    {
-        name: "Pop",
-        value: ""
-    },
-    {
-        name: "Country",
-        value: ""
-    },
-]
-
 function findComment(name) {
-    return comments.find(item => item.name === name)
+    const comment = commentsCollection.findOne({
+        name: name
+    })
+
+    return comment
 }
 
 // When some client emit a event called "connection" the server will listen and done something 
@@ -28,22 +14,24 @@ io.on("connection", (socket) => {
     console.log('A user has connected')
 
     // this is activate when some enter in the selected gender 
-    socket.on("gender_select", (name, callBackValue) => {
+    socket.on("gender_select", async (name, callBackValue) => {
 
         // join - Create a room
         // join - Get the client and group him in a room with the gender type name
         socket.join(name)
 
-        const comment = findComment(name)
+        const comment = await findComment(name)
+
+        console.log(comment)
 
         //Return value as callBack when server recognize the event
         if (comment) callBackValue(comment.value)
     })
 
     // Get the socket emit by client 
-    socket.on("text_action", ({ text, name }) => {
+    socket.on("text_action", async ({ text, name }) => {
 
-        const comment = findComment(name)
+        const comment = await findComment(name)
 
         if (comment) {
             comment.value = text
