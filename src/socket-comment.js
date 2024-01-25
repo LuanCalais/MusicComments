@@ -1,13 +1,5 @@
-import { commentsCollection } from "./config/dbConnect.js";
 import io from "./server.js";
-
-function findComment(name) {
-    const comment = commentsCollection.findOne({
-        name: name
-    })
-
-    return comment
-}
+import { findOneComment, findOneAndUpdate } from "./commentsDb.js";
 
 // When some client emit a event called "connection" the server will listen and done something 
 io.on("connection", (socket) => {
@@ -20,7 +12,7 @@ io.on("connection", (socket) => {
         // join - Get the client and group him in a room with the gender type name
         socket.join(name)
 
-        const comment = await findComment(name)
+        const comment = await findOneComment(name)
 
         console.log(comment)
 
@@ -30,16 +22,12 @@ io.on("connection", (socket) => {
 
     // Get the socket emit by client 
     socket.on("text_action", async ({ text, name }) => {
-
-        const comment = await findComment(name)
-
-        if (comment) {
-            comment.value = text
-
+        const res = await findOneAndUpdate(name, text)
+        
+        if (res.modifiedCount) {
             // *** Set the information to the correct room and clients there
             socket.to(name).emit("text_action_client", text)
         }
-
 
         // *** Emits examples ***
 
