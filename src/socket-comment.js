@@ -1,9 +1,14 @@
 import io from "./server.js";
-import { findOneComment, findOneAndUpdate } from "./commentsDb.js";
+import { findOneComment, findOneAndUpdate, getAllGenders } from "./commentsDb.js";
 
 // When some client emit a event called "connection" the server will listen and done something 
 io.on("connection", (socket) => {
     console.log('A user has connected')
+
+    socket.on("get_all_genders", async (callBackGenders) => {
+        const genders = await getAllGenders()
+        callBackGenders(genders)
+    })
 
     // this is activate when some enter in the selected gender 
     socket.on("gender_select", async (name, callBackValue) => {
@@ -14,8 +19,6 @@ io.on("connection", (socket) => {
 
         const comment = await findOneComment(name)
 
-        console.log(comment)
-
         //Return value as callBack when server recognize the event
         if (comment) callBackValue(comment.value)
     })
@@ -23,7 +26,7 @@ io.on("connection", (socket) => {
     // Get the socket emit by client 
     socket.on("text_action", async ({ text, name }) => {
         const res = await findOneAndUpdate(name, text)
-        
+
         if (res.modifiedCount) {
             // *** Set the information to the correct room and clients there
             socket.to(name).emit("text_action_client", text)

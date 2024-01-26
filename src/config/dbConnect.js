@@ -10,7 +10,6 @@ try {
     const db = client.db("MusicComments")
     commentsCollection = db.collection("comments")
 
-    console.log(comments)
     console.log("Database connection is done")
 
 } catch (err) {

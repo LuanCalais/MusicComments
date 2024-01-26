@@ -1,5 +1,9 @@
 import { commentsCollection } from "./config/dbConnect.js";
 
+function getAllGenders() {
+    const genders = commentsCollection.find().toArray()
+    return genders
+}
 
 function findOneComment(name) {
     const comment = commentsCollection.findOne({
@@ -21,4 +25,4 @@ function findOneAndUpdate(name, value) {
 
 
 
-export { findOneComment, findOneAndUpdate }
+export { findOneComment, findOneAndUpdate, getAllGenders }
