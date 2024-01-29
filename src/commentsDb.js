@@ -23,6 +23,15 @@ function findOneAndUpdate(name, value) {
     return res
 }
 
+function addGender(name) {
+    const res = commentsCollection.insertOne({
+        name,
+        value: ''
+    })
+
+    return res
+}
 
 
-export { findOneComment, findOneAndUpdate, getAllGenders }
+
+export { findOneComment, findOneAndUpdate, getAllGenders, addGender }

@@ -1,6 +1,14 @@
-import "./socket-comment-index.js"
+import { emitAddNewGender } from "./socket-comment-index.js"
 
 const genders = document.getElementById('gender-list')
+const form = document.getElementById('form-add-gender')
+const input = document.getElementById('input-gender')
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    emitAddNewGender(input.value)
+    input.value = ""
+})
 
 function insertNewDocument(name) {
     genders.innerHTML += `

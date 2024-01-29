@@ -7,3 +7,14 @@ socket.emit('get_all_genders', (genders) => {
         insertNewDocument(item.name)
     });
 })
+
+function emitAddNewGender(name) {
+    socket.emit("add_gender", name)
+}
+
+socket.on("add_gender_to_list", (name) => {
+    insertNewDocument(name)
+})
+
+
+export { emitAddNewGender }
