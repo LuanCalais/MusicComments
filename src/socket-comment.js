@@ -1,5 +1,5 @@
 import io from "./server.js";
-import { findOneComment, findOneAndUpdate, getAllGenders, addGender } from "./commentsDb.js";
+import { findOneComment, findOneAndUpdate, getAllGenders, addGender, deleteGender } from "./commentsDb.js";
 
 // When some client emit a event called "connection" the server will listen and done something 
 io.on("connection", (socket) => {
@@ -35,6 +35,13 @@ io.on("connection", (socket) => {
         const res = await addGender(name)
         if (res.acknowledged) {
             io.emit("add_gender_to_list", name)
+        }
+    })
+
+    socket.on('delete_gender', async (name) => {
+        const res = await deleteGender(name)
+        if (res.deletedCount) {
+            io.emit("gender_removed", name)
         }
     })
 

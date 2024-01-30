@@ -1,9 +1,12 @@
-import { emitTextAction, genderSelect } from "./socket-comment.js"
+import { emitTextAction, genderSelect, emitGenderDelete } from "./socket-comment.js"
 
 const params = new URLSearchParams(window.location.search)
 const name = params.get("name")
 
 document.getElementById('comment-title').innerHTML = name || 'Invalid title'
+
+document.getElementById('delete-comment').addEventListener('click', deleteComment)
+
 
 genderSelect(name)
 
@@ -20,4 +23,13 @@ function updateTextArea(value) {
     textInput.value = value
 }
 
-export { updateTextArea }
+function deleteComment() {
+    emitGenderDelete(name)
+}
+
+function handleWithDeletedGender(name) {
+    alert(`Gender ${name} has been removed`)
+    window.location.href = "/"
+}
+
+export { updateTextArea, handleWithDeletedGender }

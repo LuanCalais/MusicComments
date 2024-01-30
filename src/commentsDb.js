@@ -32,6 +32,13 @@ function addGender(name) {
     return res
 }
 
+function deleteGender(name) {
+    const res = commentsCollection.deleteOne({
+        name
+    })
+    return res
+}
 
 
-export { findOneComment, findOneAndUpdate, getAllGenders, addGender }
+
+export { findOneComment, findOneAndUpdate, getAllGenders, addGender, deleteGender }
