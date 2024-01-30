@@ -16,5 +16,9 @@ socket.on("add_gender_to_list", (name) => {
     insertNewDocument(name)
 })
 
+socket.on('gender_exists', (name) => {
+    alert(`Gender ${name} already in the list`)
+})
+
 
 export { emitAddNewGender }

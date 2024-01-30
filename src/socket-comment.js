@@ -24,6 +24,14 @@ io.on("connection", (socket) => {
     })
 
     socket.on("add_gender", async (name) => {
+
+        const genderAlreadyExists = (await findOneComment(name)) !== null
+
+        if (genderAlreadyExists) {
+            socket.emit('gender_exists', name)
+            return
+        }
+
         const res = await addGender(name)
         if (res.acknowledged) {
             io.emit("add_gender_to_list", name)
