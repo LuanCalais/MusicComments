@@ -27,8 +27,9 @@ function deleteComment() {
     emitGenderDelete(name)
 }
 
-function handleWithDeletedGender(name) {
-    alert(`Gender ${name} has been removed`)
+function handleWithDeletedGender(deletedName) {
+    if (deletedName !== name) return
+    alert(`Gender ${deletedName} has been removed`)
     window.location.href = "/"
 }
 

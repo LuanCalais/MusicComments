@@ -10,12 +10,17 @@ form.addEventListener("submit", (e) => {
     input.value = ""
 })
 
-function insertNewDocument(name) {
+function insertNewGender(name) {
     genders.innerHTML += `
-    <a href="comment.html?name=${name}" class="list-group-item list-group-item-action">
+    <a href="comment.html?name=${name}" class="list-group-item list-group-item-action" id="${name}">
        ${name}
     </a>
     `
 }
 
-export { insertNewDocument }
+function removeGender(name){
+    const gender = document.getElementById(name)
+    genders.removeChild(gender)
+}
+
+export { insertNewGender, removeGender }
